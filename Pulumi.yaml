@@ -8,13 +8,12 @@ variables:
   region: LON1
 
 resources:
-  # Create a network
   network:
     type: civo:Network
     properties:
       label: k8s_social
       region: ${region}
-  # Create a firewall
+
   firewall:
     type: civo:Firewall
     properties:
@@ -65,22 +64,23 @@ resources:
           cidrs:
             - 0.0.0.0/0
           action: allow
-  # Kubernetes Cluster
+
   k8sCluster:
     type: civo:KubernetesCluster
     properties:
+      name: "k8s.social"
       firewallId: ${firewall.id}
       networkId: ${network.id}
       pools:
         nodeCount: 3
-        size: small
+        size: g4s.kube.small
       region: ${region}
       cni: cilium
       applications: Nginx
     options:
       additionalSecretOutputs:
         - kubeconfig
-  # ObjectStore
+
   objectStoreCreds:
     type: civo:ObjectStoreCredential
     properties:
@@ -97,6 +97,7 @@ resources:
       region: ${region}
       name: "k8s.social-media"
       accessKeyId: ${objectStoreCreds.accessKeyId}
+
   domainName:
     type: civo:DnsDomainName
     properties:
