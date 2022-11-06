@@ -1,0 +1,110 @@
+name: infra
+description: Infrastructure automation for k8s.social
+runtime: yaml
+
+configuration: {}
+
+variables:
+  region: LON1
+
+resources:
+  # Create a network
+  network:
+    type: civo:Network
+    properties:
+      label: k8s_social
+      region: ${region}
+  # Create a firewall
+  firewall:
+    type: civo:Firewall
+    properties:
+      networkId: ${network.id}
+      region: ${region}
+      createDefaultRules: false
+      ingressRules:
+        - label: k8s
+          protocol: tcp
+          portRange: 6443
+          cidrs:
+            - 0.0.0.0/0
+          action: allow
+        - label: https-tcp
+          protocol: tcp
+          portRange: 443
+          cidrs:
+            - 0.0.0.0/0
+          action: allow
+        - label: https-udp
+          protocol: udp
+          portRange: 443
+          cidrs:
+            - 0.0.0.0/0
+          action: allow
+        - label: http-tcp
+          protocol: tcp
+          portRange: 80
+          cidrs:
+            - 0.0.0.0/0
+          action: allow
+        - label: http-udp
+          protocol: udp
+          portRange: 80
+          cidrs:
+            - 0.0.0.0/0
+          action: allow
+      egressRules:
+        - label: all-tcp
+          protocol: tcp
+          portRange: 1-65535
+          cidrs:
+            - 0.0.0.0/0
+          action: allow
+        - label: all-udp
+          protocol: udp
+          portRange: 1-65535
+          cidrs:
+            - 0.0.0.0/0
+          action: allow
+  # Kubernetes Cluster
+  k8sCluster:
+    type: civo:KubernetesCluster
+    properties:
+      firewallId: ${firewall.id}
+      networkId: ${network.id}
+      pools:
+        nodeCount: 3
+        size: small
+      region: ${region}
+      cni: cilium
+      applications: Nginx
+    options:
+      additionalSecretOutputs:
+        - kubeconfig
+  # ObjectStore
+  objectStoreCreds:
+    type: civo:ObjectStoreCredential
+    properties:
+      region: ${region}
+      name: "k8s.social-media"
+    options:
+      additionalSecretOutputs:
+        - accessKeyId
+        - secretAccessKey
+  media:
+    type: civo:ObjectStore
+    properties:
+      maxSizeGb: 500
+      region: ${region}
+      name: "k8s.social-media"
+      accessKeyId: ${objectStoreCreds.accessKeyId}
+  domainName:
+    type: civo:DnsDomainName
+    properties:
+      name: k8s.social
+
+outputs:
+  objectStoreCreds:
+    accessKeyId: ${objectStoreCreds.accessKeyId}
+    secretAccessKey: ${objectStoreCreds.secretAccessKey}
+  kubernetesEndpoint: ${k8sCluster.apiEndpoint}
+  kubeconfig: ${k8sCluster.kubeconfig}
