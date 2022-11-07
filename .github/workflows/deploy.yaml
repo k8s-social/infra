@@ -1,9 +1,11 @@
-name: Pulumi Preview
+name: Pulumi Deploy
 on:
-  - pull_request
+  push:
+    branches:
+      - main
 jobs:
   preview:
-    name: Preview
+    name: Deploy
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -11,10 +13,9 @@ jobs:
       - run: go mod download
       - uses: pulumi/actions@v3
         with:
-          command: preview
+          command: up
           stack-name: production
           cloud-url: "s3://k8s.social-stackbackend?endpoint=objectstore.lon1.civo.com&s3ForcePathStyle=true&region=LON1"
-          comment-on-pr: true
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.STACK_BACKEND_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.STACK_BACKEND_SECRET_ACCESS_KEY }}
