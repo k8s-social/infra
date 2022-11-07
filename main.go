@@ -92,7 +92,8 @@ func main() {
 			Region:       pulumi.String(region),
 			Cni:          pulumi.String("cilium"),
 			Applications: pulumi.String("Nginx"),
-		})
+		},
+			pulumi.AdditionalSecretOutputs([]string{"kubeconfig"}))
 		if err != nil {
 			return err
 		}
@@ -100,7 +101,8 @@ func main() {
 		objectStoreCredsResource, err := civo.NewObjectStoreCredential(ctx, "objectStoreCreds", &civo.ObjectStoreCredentialArgs{
 			Region: pulumi.String(region),
 			Name:   pulumi.String("k8s.social-media"),
-		})
+		},
+			pulumi.AdditionalSecretOutputs([]string{"accessKeyId", "secretAccessKey"}))
 		if err != nil {
 			return err
 		}
