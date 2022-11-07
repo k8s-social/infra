@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/k8s-social/gitops.git
-    path: manifests
+    path: manifests/_apps
     targetRevision: HEAD
   destination:
     server: https://kubernetes.default.svc
