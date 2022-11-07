@@ -19,3 +19,4 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.STACK_BACKEND_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.STACK_BACKEND_SECRET_ACCESS_KEY }}
           PULUMI_CONFIG_PASSPHRASE: ${{ secrets.PULUMI_CONFIG_PASSPHRASE }}
+          CIVO_TOKEN: ${{ secrets.CIVO_TOKEN }}
