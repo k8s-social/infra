@@ -141,6 +141,16 @@ func main() {
 			return err
 		}
 
+		_, err = kustomize.NewDirectory(ctx, "sealedsecrets",
+			kustomize.DirectoryArgs{
+				Directory: pulumi.String("./manifests/sealedsecrets"),
+			},
+			pulumi.Provider(kubernetesProvider),
+		)
+		if err != nil {
+			return err
+		}
+
 		ctx.Export("objectStoreCreds.accessKeyId", objectStoreCredsResource.AccessKeyId)
 		ctx.Export("objectStoreCreds.secretAccessKey", objectStoreCredsResource.SecretAccessKey)
 		ctx.Export("kubernetesEndpoint", k8SCluster.ApiEndpoint)
