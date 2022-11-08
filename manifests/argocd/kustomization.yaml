@@ -6,3 +6,6 @@ resources:
 - ./namespace.yaml
 - https://raw.githubusercontent.com/argoproj/argo-cd/v2.5.1/manifests/ha/install.yaml
 - ./apps.yaml
+
+patches:
+- ./configmap.yaml
