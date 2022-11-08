@@ -9,16 +9,18 @@ resources:
 
 patches:
 - patch: |-
-    - op: replace
-      path: /data
-      value: |
-        resource.exclusions: |
-          - apiGroups:
-              - cilium.io
-            kinds:
-              - CiliumIdentity
-            clusters:
-              - "*"
-  target:
+    apiVersion: v1
     kind: ConfigMap
-    labelSelector: "app.kubernetes.io/name=argocd-cm"
+    metadata:
+      name: argocd-cm
+      namespace: argocd
+      labels:
+        app.kubernetes.io/name: argocd-cm
+    data:
+      resource.exclusions: |
+        - apiGroups:
+            - cilium.io
+          kinds:
+            - CiliumIdentity
+          clusters:
+            - "*"
