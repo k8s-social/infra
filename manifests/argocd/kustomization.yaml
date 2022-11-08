@@ -6,3 +6,19 @@ resources:
 - ./namespace.yaml
 - https://raw.githubusercontent.com/argoproj/argo-cd/v2.5.1/manifests/ha/install.yaml
 - ./apps.yaml
+
+patches:
+- patch: |-
+    - op: replace
+      path: /data
+      value: |
+        resource.exclusions: |
+          - apiGroups:
+              - cilium.io
+            kinds:
+              - CiliumIdentity
+            clusters:
+              - "*"
+  target:
+    kind: ConfigMap
+    labelSelector: "app.kubernetes.io/name=argocd-cm"
