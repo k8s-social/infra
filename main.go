@@ -86,7 +86,7 @@ func main() {
 			FirewallId: firewall.ID(),
 			NetworkId:  network.ID(),
 			Pools: &civo.KubernetesClusterPoolsArgs{
-				NodeCount: pulumi.Int(3),
+				NodeCount: pulumi.Int(4),
 				Size:      pulumi.String("g4s.kube.small"),
 			},
 			Region:       pulumi.String(region),
