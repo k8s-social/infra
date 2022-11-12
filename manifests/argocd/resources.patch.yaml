@@ -2,11 +2,16 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: argocd-applicationset-controller
+  labels:
+    app.kubernetes.io/component: controller
+    app.kubernetes.io/name: argocd-applicationset-controller
+    app.kubernetes.io/part-of: argocd-applicationset
 spec:
   template:
     spec:
       containers:
       - name: argocd-applicationset-controller
+        image: quay.io/argoproj/argocd:v2.5.1
         resources:
           requests:
             cpu: 30m
@@ -15,11 +20,16 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: argocd-dex-server
+  labels:
+    app.kubernetes.io/component: dex-server
+    app.kubernetes.io/name: argocd-dex-server
+    app.kubernetes.io/part-of: argocd
 spec:
   template:
     spec:
       containers:
       - name: dex
+        image: ghcr.io/dexidp/dex:v2.35.3-distroless
         resources:
           requests:
             cpu: 30m
@@ -33,6 +43,7 @@ spec:
     spec:
       containers:
       - name: argocd-notifications-controller
+        image: quay.io/argoproj/argocd:v2.5.1
         resources:
           requests:
             cpu: 30m
@@ -41,11 +52,16 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: argocd-redis
+  labels:
+    app.kubernetes.io/component: redis
+    app.kubernetes.io/name: argocd-redis
+    app.kubernetes.io/part-of: argocd
 spec:
   template:
     spec:
       containers:
       - name: redis
+        image: redis:7.0.5-alpine
         resources:
           requests:
             cpu: 30m
@@ -54,11 +70,16 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: argocd-repo-server
+  labels:
+    app.kubernetes.io/component: repo-server
+    app.kubernetes.io/name: argocd-repo-server
+    app.kubernetes.io/part-of: argocd
 spec:
   template:
     spec:
       containers:
       - name: argocd-repo-server
+        image: quay.io/argoproj/argocd:v2.5.1
         resources:
           requests:
             cpu: 60m
@@ -67,11 +88,16 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: argocd-server
+  labels:
+    app.kubernetes.io/component: server
+    app.kubernetes.io/name: argocd-server
+    app.kubernetes.io/part-of: argocd
 spec:
   template:
     spec:
       containers:
       - name: argocd-server
+        image: quay.io/argoproj/argocd:v2.5.1
         resources:
           requests:
             cpu: 30m
