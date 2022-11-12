@@ -87,22 +87,12 @@ func main() {
 			NetworkId:  network.ID(),
 			Pools: &civo.KubernetesClusterPoolsArgs{
 				NodeCount: pulumi.Int(2),
-				Size:      pulumi.String("g4s.kube.small"),
+				Size:      pulumi.String("g4s.kube.medium"),
 			},
 			Region: pulumi.String(region),
 			Cni:    pulumi.String("cilium"),
 		},
 			pulumi.AdditionalSecretOutputs([]string{"kubeconfig"}))
-		if err != nil {
-			return err
-		}
-
-		_, err = civo.NewKubernetesNodePool(ctx, "nodepool-1", &civo.KubernetesNodePoolArgs{
-			ClusterId: k8SCluster.ID(),
-			Region:    pulumi.String(region),
-			NodeCount: pulumi.Int(2),
-			Size:      pulumi.String("g4s.kube.medium"),
-		})
 		if err != nil {
 			return err
 		}
