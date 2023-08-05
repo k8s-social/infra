@@ -25,8 +25,8 @@
   },
   "regexManagers": [
     {
-      "fileMatch": ["^manifests\\/kustomization\\.yaml$"],
-      "matchStrings": ["repo: (?<depName>.*)\n(.+)\\/releases\\/download\\/(?<currentValue>.+)\\/.*"],
+      "fileMatch": ["kustomization\\.yaml$"],
+      "matchStrings": ["repo: (?<depName>.*)\n(.+)\\/(?<currentValue>.+)\\/.*"],
       "datasourceTemplate": "github-releases",
       "extractVersionTemplate": "^(?<version>.*)$"
     }
