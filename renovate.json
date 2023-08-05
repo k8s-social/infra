@@ -22,5 +22,13 @@
   },
   "kubernetes": {
     "fileMatch": ["manifests/.+\\.yaml$"]
-  }
+  },
+  "regexManagers": [
+    {
+      "fileMatch": ["^manifests\\/kustomization\\.yaml$"],
+      "matchStrings": ["repo: (?<depName>.*)\n(.+)\\/releases\\/download\\/(?<currentValue>.+)\\/.*"],
+      "datasourceTemplate": "github-releases",
+      "extractVersionTemplate": "^(?<version>.*)$"
+    }
+  ]
 }

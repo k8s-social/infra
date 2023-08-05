@@ -3,6 +3,7 @@ kind: Kustomization
 
 namespace: kube-system
 resources:
+# repo: bitnami-labs/sealed-secrets
 - https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.19.1/controller.yaml
 
 patches:
