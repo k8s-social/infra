@@ -61,7 +61,7 @@ spec:
     spec:
       containers:
       - name: redis
-        image: redis:7.0.12-alpine
+        image: redis:7.2.0-alpine
         resources:
           requests:
             cpu: 30m
