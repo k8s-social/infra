@@ -89,8 +89,9 @@ func main() {
 				NodeCount: pulumi.Int(2),
 				Size:      pulumi.String("g4s.kube.medium"),
 			},
-			Region: pulumi.String(region),
-			Cni:    pulumi.String("cilium"),
+			Region:            pulumi.String(region),
+			Cni:               pulumi.String("cilium"),
+			KubernetesVersion: pulumi.String("1.27.1-k3s1"),
 		},
 			pulumi.AdditionalSecretOutputs([]string{"kubeconfig"}))
 		if err != nil {
