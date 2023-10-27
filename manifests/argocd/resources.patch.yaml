@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
       - name: argocd-applicationset-controller
-        image: quay.io/argoproj/argocd:v2.8.4
+        image: quay.io/argoproj/argocd:v2.8.5
         resources:
           requests:
             cpu: 30m
@@ -43,7 +43,7 @@ spec:
     spec:
       containers:
       - name: argocd-notifications-controller
-        image: quay.io/argoproj/argocd:v2.8.4
+        image: quay.io/argoproj/argocd:v2.8.5
         resources:
           requests:
             cpu: 30m
@@ -79,7 +79,7 @@ spec:
     spec:
       containers:
       - name: argocd-repo-server
-        image: quay.io/argoproj/argocd:v2.8.4
+        image: quay.io/argoproj/argocd:v2.8.5
         resources:
           requests:
             cpu: 60m
@@ -97,7 +97,7 @@ spec:
     spec:
       containers:
       - name: argocd-server
-        image: quay.io/argoproj/argocd:v2.8.4
+        image: quay.io/argoproj/argocd:v2.8.5
         resources:
           requests:
             cpu: 30m
