@@ -29,7 +29,7 @@ spec:
     spec:
       containers:
       - name: dex
-        image: ghcr.io/dexidp/dex:v2.37.0-distroless
+        image: ghcr.io/dexidp/dex:v2.38.0-distroless
         resources:
           requests:
             cpu: 30m
