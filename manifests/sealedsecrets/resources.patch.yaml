@@ -8,7 +8,7 @@ spec:
     spec:
       containers:
         - name: sealed-secrets-controller
-          image: docker.io/bitnami/sealed-secrets-controller:0.26.1
+          image: docker.io/bitnami/sealed-secrets-controller:0.26.2
           resources:
             requests:
               cpu: 30m
