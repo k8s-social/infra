@@ -91,7 +91,7 @@ func main() {
 			},
 			Region:            pulumi.String(region),
 			Cni:               pulumi.String("cilium"),
-			KubernetesVersion: pulumi.String("1.28.2-k3s1"),
+			KubernetesVersion: pulumi.String("1.29.8-k3s1"),
 		},
 			pulumi.AdditionalSecretOutputs([]string{"kubeconfig"}))
 		if err != nil {
