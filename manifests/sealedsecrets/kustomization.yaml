@@ -4,7 +4,7 @@ kind: Kustomization
 namespace: kube-system
 resources:
 # repo: bitnami-labs/sealed-secrets
-- https://github.com/bitnami-labs/sealed-secrets/releases/download/vv0.31.0/controller.yaml
+- https://github.com/bitnami-labs/sealed-secrets/releases/download/vv0.32.1/controller.yaml
 
 patches:
 - ./resources.patch.yaml
